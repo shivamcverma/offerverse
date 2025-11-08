@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Comparison</title>
+    <link rel="stylesheet" href="{% static 'products/style.css' %}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h2>Best Deals</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'product_list' %}">Home</a></li>
+            <li><a href="{% url 'product_list' %}?platform=amazon">Amazon Deals</a></li>
+            <li><a href="{% url 'product_list' %}?platform=flipkart">Flipkart Deals</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Best Product Deals</h1>
+    </header>
+
+    <main class="products">
+        {% for product in products %}
+        <div class="product-card">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.price }}</p>
+            <a href="{{ product.affiliate_link }}" target="_blank">Buy Now</a>
+        </div>
+        {% endfor %}
+    </main>
+
+    <script>
+        // Hamburger menu toggle for mobile
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            hamburger.classList.toggle('toggle');
+        });
+    </script>
+</body>
+
+</html>
